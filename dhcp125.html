@@ -1,0 +1,43 @@
+<HTML>
+ <HEAD>
+  <TITLE>dhcp option 43 string, and option 125 ASCII hex pair generator for Mitel telephones</TITLE>
+ </HEAD>
+ <BODY>
+  <FORM action="option125-generator.cgi" method="GET">
+   <H1>dhcp option 43 string, and option 125 ASCII hex pair generator</H1>
+	<P>In choice order, enter the IP addresses of one or more tftp servers for your telephones to download their firmware from, - usually the ICPs themselves, but in some cases this might be your SRC servers instead.<BR>
+	<INPUT type="text" name="tftp1" size="12" value="192.168.1.2"><INPUT type="text" name="tftp2" size="12"><INPUT type="text" name="tftp3" size="12"><INPUT type="text" name="tftp4" size="12"><INPUT type="text" name="tftp5" size="12"><INPUT type="text" name="tftp6" size="12"><BR>Specifying more tftp servers will make your phones boot and upgrade more quickly, expcially if you have a lot of telelphones, because each tftp server can only handle a finite number of tftp connections at once. This will also improve resiliency by the allowing phones to boot correctly should their preferred tftp server be unavailable.</P>
+	<P>In choice order, enter the IP addresses of one or more ICPs for your telephones to connect to. - usually the primary ICP for the majority of telephones in your subnet, followed by other cluster members which are to function as secondary elements. Where phones are to be recorded, you should enter the addresses of your SRCs.<BR>
+	<INPUT type="text" name="icp1" size="12" value="192.168.1.2"><INPUT type="text" name="icp2" size="12"><INPUT type="text" name="icp3" size="12"><INPUT type="text" name="icp4" size="12"><BR>Please note: configuring phones for resiliency is done in the users and device configration on the ICP itself, or in Ops Manager. However configuring multiple addresses here, will add an extra level of resiliency, should your phones reboot, and their primary controller be unavailable, especially for older telephones that have no persistent memory are therefore not able to store their redirect list over the course of a reboot.</P>
+	<P>Enter the VLAN identifier, in decimal notation, that the telephones should switch their traffic onto, by 802.1q tagging.<BR><INPUT type="text" name="vlan" size="3"></P>
+	<P>Enter the 802.1p VLAN priority, for the three different types of traffic that the phones generate.<BR>
+	Default <select name="defaultl2p" size="1">
+  <option value="0" selected="selected">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option>
+</select> other traffic not described below, can be set at a lower priority.<BR>
+	Voice media <select name="medial2p" size="1">
+  <option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5" selected="selected">5</option><option value="6">6</option><option value="7">7</option>
+</select> traffic passing through Cisco network equipment should be always be set at 5. In other cases it can be set at 6.<BR>
+	Signalling <select name="signalsl2p" size="1">
+  <option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3" selected="selected">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option>
+</select> 3 is recomended for signalling traffic</P>
+	<P>Enter the Differentiated Services priority (DSCP), for the three different types of traffic that the phones generate.<BR>
+	Default <select name="defaultdscp" size="1">
+  <option value="0" selected="selected">0</option><option value="8">8</option><option value="10">10</option><option value="16">16</option><option value="18">18</option><option value="24">24</option><option value="26">26</option><option value="32">32</option><option value="34">34</option><option value="40">40</option><option value="46">46</option><option value="48">48</option><option value="56">56</option>
+</select> other traffic not described below, can be set at a lower priority.<BR>
+	Voice media <select name="mediadscp" size="1">
+  <option value="0">0</option><option value="8">8</option><option value="10">10</option><option value="16">16</option><option value="18">18</option><option value="24">24</option><option value="26">26</option><option value="32">32</option><option value="34">34</option><option value="40">40</option><option value="46" selected="selected">46</option><option value="48">48</option><option value="56">56</option>
+  </select> 46 is recommended for voice media traffic.<BR>
+   Signalling <select name="signalsdscp" size="1">
+  <option value="0">0</option><option value="8">8</option><option value="10">10</option><option value="16">16</option><option value="18">18</option><option value="24">24</option><option value="26" selected="selected">26</option><option value="32">32</option><option value="34">34</option><option value="40">40</option><option value="46">46</option><option value="48">48</option><option value="56">56</option>
+</select> 26 is recomended for signalling traffic</P>
+   <!--<P>Enter string
+    <INPUT type="text" name="string" size="100" value="id:ipphone.mitel.com;"></P>-->
+   <P>Select Server OS:<BR>
+    <INPUT type="radio" name="servertype" value=1 checked>'nix<BR>
+    <INPUT type="radio" name="servertype" value=0>Microsoft<BR>
+   </P>
+    <INPUT type= "submit" value="submit">
+    <INPUT type= "reset" value="reset">
+  </FORM>
+ </BODY>
+</HTML>
